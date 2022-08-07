@@ -14,7 +14,7 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->text();
+        $name = $this->faker->sentence;
         $slug = Str::slug($name, '-');
         return [
             'name' => $name,
