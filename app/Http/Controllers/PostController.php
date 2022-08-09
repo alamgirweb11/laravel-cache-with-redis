@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,10 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with('category', 'user')->orderBy('id', 'desc')->cursorPaginate(20);
-        return view('backend.posts.index', compact('posts'));
+        $posts = Post::with('category', 'user')->orderBy('id', 'desc')->paginate(20);
+        return view('backend.posts.index', compact('posts'))->with('i', ($request->input('page', 1) - 1) * 20);;
     }
 
     /**
@@ -25,7 +26,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+       $categories = Category::where('status', 1)->select('name', 'id')->get();
+       return view('backend.posts.create', compact('categories'));
     }
 
     /**
