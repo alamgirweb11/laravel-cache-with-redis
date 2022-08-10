@@ -7,16 +7,16 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
                 <!-- component -->
                 <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8">
                     <div
                         class="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white shadow-lg px-12">
                         <div class="flex justify-between">
                             <div class="inline-flex  w-7/12 px-2 lg:px-6 h-12 bg-transparent">
-                                <div class="flex flex-wrap items-stretch w-full h-full mb-6 relative">
+                                <div class="flex flex-wrap items-stretch w-full mb-6 relative">
                                     <a href="{{ route('posts.create') }}"
-                                        class="px-2 py-2 border border-blue-500 text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">Add
+                                        class="px-2 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">Add
                                         New Post</a>
                                 </div>
                             </div>

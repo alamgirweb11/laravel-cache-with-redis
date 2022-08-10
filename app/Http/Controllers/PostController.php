@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -36,9 +39,17 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        //
+         $request->thumbnail_img = 'https://via.placeholder.com/640x480.png/0033cc?text=pariatur';
+         $request->user_id = Auth::id();
+         $request->status = 'published';
+         try{
+            Post::create($request->validated());
+            return redirect()->back()->with(Session::flash('message', 'Data successfully submitted.'));
+         }catch(\Exception $e){
+            return redirect()->back()->with(Session::flash('message', $e->getMessage()));
+         }
     }
 
     /**
