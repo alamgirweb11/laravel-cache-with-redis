@@ -402,6 +402,7 @@
             font-family: 'Nunito', sans-serif;
         }
     </style>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="antialiased">
@@ -424,30 +425,41 @@
     </div>
 
 
-    <div class="mx-auto h-screen-full  bg-gray-100">
+    <div class="mx-auto h-screen-full bg-gray-100">
         <section class="pt-5 pb-5">
             <div class="grid grid-cols-1 mx-4 my-10 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+
+                @foreach ($posts as $post)
                 <div class="card max-w-sm mx-auto my-4 bg-white p-5 sm:m-2  md:m-3 lg:m-5 rounded-lg shadow-md">
                     <div class="card-top space-y-2">
-                        <img src="https://via.placeholder.com/150" class="h-50 rounded-md" alt="" />
+                        <img src="{{ $post->thumbnail_img }}" class="h-50 rounded-md" alt="" loading="lazy" />
                     </div>
                     <div class="card-bottom">
-                        <h4 class="card-title text-lg font-bold py-2 sm:text-sm md:text-md lg:text-lg">
-                            Lorem ipsum dolor sit.
+                        <h4 class="text-lg font-bold py-2 sm:text-sm md:text-md lg:text-lg">
+                            {{ $post->title }}
+                            <br>
+                            <small class="text-slate-500"><a href="#">{{ \Str::limit($post->category->name, 5) }}</a></small>
                         </h4>
+                       
 
                         <p class="card-description text-md py-1">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum veniam ipsam placeat
-                            aspernatur numquam hic.....
+                            {{\Str::limit($post->description, 100, '...')}}
                         </p>
+                        <p><small>{{ $post->created_at->diffForHumans()}}</small></p>
+                        <p class="pb-2"><small>Post By {{ $post->user->name }}</small></p>
+                       
 
-                        <button
+                        <button type="button"
                             class="px-3 py-1 border rounded-lg border-slate-700 transition duration-300 hover:bg-slate-600 hover:text-white">
                             Read More...
                         </button>
                     </div>
-                </div>
+                </div> 
+                @endforeach
+
             </div>
+
+            {!! $posts->links() !!}
         </section>
     </div>
 
