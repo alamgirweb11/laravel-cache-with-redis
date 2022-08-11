@@ -41,11 +41,15 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-         $request->thumbnail_img = 'https://via.placeholder.com/640x480.png/0033cc?text=pariatur';
-         $request->user_id = Auth::id();
-         $request->status = 'published';
          try{
-            Post::create($request->validated());
+            Post::create([
+              'thumbnail_img' => $request->thumbnail_img ?? 'https://via.placeholder.com/640x480.png/0033cc?text=pariatur',
+              'user_id' =>  $request->user_id ?? Auth::id(),
+              'status' =>  $request->status ?? 'published',
+              'category_id' =>  $request->category_id,
+              'title' =>  $request->title,
+              'description' =>  $request->description,
+            ]);
             return redirect()->back()->with(Session::flash('message', 'Data successfully submitted.'));
          }catch(\Exception $e){
             return redirect()->back()->with(Session::flash('message', $e->getMessage()));
