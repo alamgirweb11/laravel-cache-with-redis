@@ -18,7 +18,9 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::with('category', 'user')->orderBy('id', 'desc')->paginate(20);
+        $posts = cache('posts', function(){
+             return Post::with('category', 'user')->orderBy('id', 'desc')->paginate(20);
+        });
         return view('backend.posts.index', compact('posts'))->with('i', ($request->input('page', 1) - 1) * 20);;
     }
 

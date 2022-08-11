@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 class FrontendController extends Controller
 {
     public function home(){
-           $posts = Post::with('user', 'category')->orderBy('id', 'desc')->limit(10)->paginate(12);
+        $posts = cache('posts', function(){
+            return Post::with('user', 'category')->orderBy('id', 'desc')->paginate(12);
+       });
            return view('welcome', compact('posts'));
     }
 }
